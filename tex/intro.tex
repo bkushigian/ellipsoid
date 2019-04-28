@@ -1,0 +1,47 @@
+\section{Introduction}
+Let \(P = \{x : Bx \leq b\}\) be a polytope.
+\begin{question}
+  Is \(P\) empty? If not, give a point in \(P\).
+\end{question}
+
+The ellipsoid method gives us a way to find this in polynomial time. Let's take
+a look at an example.  \textbf{\color{red}Do rough (non-technical) example here.}
+
+\begin{example}
+  \def\A{\left(\begin{matrix} 1 & 0 \\ -1 & 0 \\ 0 & 1 \\ 0 & -1 \end{matrix}\right) }
+  \def\b{\left(\begin{matrix} 1\\ 0\\ 1\\ 0 \end{matrix}\right)}
+  Suppose we have the bounds \(x \geq 0, x \leq 1, y \geq 0, y \leq 1\), which
+  we represent by
+
+  \[\A x \leq \b \]
+  
+  This defines the unit square, which you and I know, but our computer hasn't
+  figured this out yet, so we would like to help it along. Our approach is as
+  follows:
+  \begin{enumerate}
+    \item \textbf{Find some ellipsoid \(E\) (which we leave undefined for now---think of
+      a shmooshed shircle or sphere) that must contain any point \(y \in P\).}
+      Note that we haven't assumed that there \textit{is} a point in \(P\), only
+      that \textit{if} there's a point in \(P\) then that point must necessarily
+      lie in \(E\).
+
+    \item \textbf{Until we are confident that we can quit}
+      \begin{enumerate}
+        \item Check if the center of the ellipse satisfies all constraints in
+          \(P\).
+        \item If the center of \(P\) is contained in polytope \(P\) then
+          \(P\) is nonempty, and our computer can report this.
+
+        \item Otherwise, the center is not contained in \(P\), and we must look
+          closer. We can draw a hyperplane through the center of \(E\) parallel
+          to the violated constraint and chop the ellipse in half.
+
+        \item We can find a new, smaller, ellipse around this new convex body
+          and we start the loop over again.
+      \end{enumerate}
+  \end{enumerate}
+\end{example}
+
+
+There are some new concepts that we just introduced without motivation. First is
+that of an ellipsoid. 
