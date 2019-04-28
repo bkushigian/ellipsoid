@@ -1,0 +1,66 @@
+
+\section{Refining our Search}
+The ellipsoid method is best thought of as a variant of binary search.  In
+binary search we are guaranteed that the inputs are sorted according to some
+ordering, and we are able to efficiently split our problems into subproblems of
+equal size. This splitting into subproblems is significantly more difficult in
+the ellipsoid method: for binary search we simply computed the midpoint of an
+array \(m = \lfloor (h - l) / 2 \rfloor\), and considered the indices greater
+than \(m\) and the indices less than \(m\) as two subproblems.
+
+\todo{Fix above, just a sketch/beginning for the motivation for ellipsoid}
+
+\subsection{Cuts}
+In our binary search analogy, the center of the ellipsoid being contained in
+polytope \(P\) is the action that corresponds to choosing the midpoint of the
+array. If the center \(a\) of the ellipse \(E(A,a)\) is contained in \(P\),
+which may be readily checked, then we are done. Otherwise we want to produce a
+subproblem.\\
+
+By convexity, there must be a line through the center \(a\) of \(E\) that does
+not intersect \(P\), and we may cut \(E\) in half, producing convex body \(E'\).
+Here we need to resolve two things:
+\begin{enumerate}
+  \item What line do we choose (and how do we find it?)
+  \item Which side of the line does our polytope \(P\) end up upon?
+\end{enumerate}
+
+The answer to the first helps us answer the second.\\
+
+Suppose that \(a \not\in P\). This means that there was some violation of a
+constraint \(c^Tx \leq \gamma\), so that \(c^Ta > \gamma\). Thus the hyperplane
+\[\{x : c^T x = c^T a\}\]
+through the center \(a\) of \(E\) cuts \(E\) in half, and by construction \(P\)
+must be contained in the half
+\begin{equation} \label{eq:ellipsoid-cut}
+E \cap \{x : c^T x \leq c^T a\}.
+\end{equation}
+\todo{Image}
+
+\subsection{L\"owner John Ellipsoids}
+Unfortunately, dividing ellipsoid \(E\) in half in (\ref{eq:ellipsoid-cut})
+doesn't yield a new ellipsoid, so we don't yet have a new subproblem. Instead,
+we would like to find a new ellipsoid that is smaller than the first that
+contains the half ellipsoid \(E'\). 
+
+\begin{theorem} For every \(K \subseteq \R^n\) there exists a unique ellipsoid
+\(E\) of minimal volume containing \(K\).
+\end{theorem}
+
+
+\begin{defbox}
+\begin{definition}[L\"owner John Ellipsoid]
+The \textbf{L\"owner John} ellipsoid of a convex body \(K\) is the smallest
+ellipsoid that contains 
+\end{definition}
+
+
+\end{defbox}
+
+After we've made our cut of \(E\), resulting in \(E'\), we want to find the
+L\"owner John ellipsoid of \(E'\). In general the L\"owner John ellipsoid of an
+arbitrary convex body \(k\) is very difficult to compute, but there are special
+cases that can be computed easily. The formula is somewhat involved and isn't
+particularly illumniating so we we don't offer it here \todo{maybe below, in a
+later part}
+

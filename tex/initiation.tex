@@ -1,0 +1,16 @@
+\section{Initialization of the Ellipsoid Method}
+Our second motivating question is ``how do we find an initial ellipsoid''? For
+the basic ellipsoid method we are assuming that \(P\) is bounded and
+full-dimensional, but it turns out that neither of these assumptions are needed
+in the fully general case.\\
+
+In a perfect world we would have explicit bounds for each of our \(x_i\), say
+\(l_i \leq x_i \leq u_i\). If we do have this then we can take \(R\) to be
+%
+\[R := \sqrt{\sum_{i=1}^n \max\{u_i^2, l_i^2\}}.\]
+%
+Unfortunately the world isn't perfect\footnote{as evidenced by Emacs users (go
+Vim)} and we need a more general approach. In this case we use the
+\textit{encoding length} of \(C\) and \(d\), denoted \(\langle C, d\rangle\).
+\todo{offer proof? this seems cool and I'd like to understand it better.}
+
