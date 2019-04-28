@@ -1,0 +1,60 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[fontsize=12pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{sectsty} % Allows customizing section commands
+\usepackage{mathtools}
+\usepackage{centernot}
+\usepackage{color}
+\usepackage{bbm}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{fancyhdr} % Custom headers and footers
+\usepackage{geometry}
+\usepackage{mathpazo}
+
+\def\R{\mathbb R}
+\def\RS{\mathbb S}
+\def\F{\mathbb F}
+\def\Z{\mathbb Z}
+\def\Q{\mathbb Q}
+\def\C{\mathbb C}
+\def\D{\mathbb D}
+\def\H{\mathbb H}
+
+%THEOREMS
+\theoremstyle{definition}
+\newtheorem{question}{Question}
+\newtheorem*{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem*{fact}{Fact}
+\newtheorem*{definition}{Definition}
+
+\newcommand{\includecode}[2][Python]{\lstinputlisting[caption=#2, escapechar=, style=custom#1]{#2}}
+
+\newcommand{\owl}{\widehat{\dbinom{\odot_\text{v}\odot}{\wr}}}
+
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
