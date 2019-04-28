@@ -12,6 +12,7 @@
 \usepackage{mathtools}
 \usepackage{centernot}
 \usepackage{color}
+\usepackage{tcolorbox}
 \usepackage{bbm}
 \usepackage{amssymb}
 \usepackage{enumerate}
@@ -27,15 +28,22 @@
 \def\C{\mathbb C}
 \def\D{\mathbb D}
 \def\H{\mathbb H}
+\def\ball{\mathcal{B}}
+\def\vol{\textnormal{vol}}
+\newcommand{\todo}[1]{{\color{red}\textbf{(todo:} \textit{{#1}}\textbf{)}}}
+
+\newtcolorbox{defbox}{colback=red!6!white,colframe=red!75!black}
+\newtcolorbox{examplebox}[1]{colback=blue!4!white,colframe=blue!50!black,title=#1}
+
 
 %THEOREMS
 \theoremstyle{definition}
 \newtheorem{question}{Q}
 \newtheorem{example}{Example}
 \newtheorem*{lemma}{Lemma}
-\newtheorem{theorem}{Theorem}
 \newtheorem*{fact}{Fact}
-\newtheorem*{definition}{Definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
 
 \newcommand{\includecode}[2][Python]{\lstinputlisting[caption=#2, escapechar=, style=custom#1]{#2}}
 

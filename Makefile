@@ -2,14 +2,16 @@ TEX = pdflatex -shell-escape -interaction=nonstopmode -file-line-error
 
 .PHONY: all view
 
-all: main.pdf
+all: main
 
 view:
 	    gnome-open main.pdf
 clean: 
 	rm *.aux *.log
 
-main.pdf : main.tex preamble.tex
+.PHONY: main.pdf
+main: main.tex
 	    $(TEX) main.tex
+
 
 
