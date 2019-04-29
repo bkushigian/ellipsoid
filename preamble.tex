@@ -28,12 +28,25 @@
 \def\C{\mathbb C}
 \def\D{\mathbb D}
 \def\H{\mathbb H}
-\def\ball{\mathcal{B}}
-\def\vol{\textnormal{vol}}
-\newcommand{\todo}[1]{{\color{red}\textbf{(todo:} \textit{{#1}}\textbf{)}}}
 
+%%% MACROS THAT WE SHOULD USE
+%%% For balls (this represents S(a,b) in the text
+\def\ball{\mathcal{B}}
+%%% For volumnes
+\def\vol{\textnormal{vol}}
+%%% For the encoding length: <C, d> is written \encode{C, D}
+\newcommand{\encode}[1]{\langle {#1} \rangle}
+%%% for various todos, this appears in red text in the pdf
+\newcommand{\todo}[1]{{\color{red}\textbf{(todo:} \textit{{#1}}\textbf{)}}}
+%%%
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+%%% For making definitions
 \newtcolorbox{defbox}{colback=red!6!white,colframe=red!75!black}
+%%% For making examples
 \newtcolorbox{examplebox}[1]{colback=blue!4!white,colframe=blue!50!black,title=#1}
+%%% For making sidenotes
+\newtcolorbox{sidenotebox}[1]{colback=green!4!white,colframe=green!50!black,title=#1}
 
 
 %THEOREMS

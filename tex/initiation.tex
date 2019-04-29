@@ -11,6 +11,46 @@ In a perfect world we would have explicit bounds for each of our \(x_i\), say
 %
 Unfortunately the world isn't perfect\footnote{as evidenced by Emacs users (go
 Vim)} and we need a more general approach. In this case we use the
-\textit{encoding length} of \(C\) and \(d\), denoted \(\langle C, d\rangle\).
+\textit{encoding length} of \(C\) and \(d\), denoted \(\encode{C, d}\).
 \todo{offer proof? this seems cool and I'd like to understand it better.}
 
+The \textbf{encoding length} of a number is roughly just the size of the input.
+While there are many possible encodings, we will assume a binary encoding.
+Further, for simplicity of exposition, we are assuming that all inputs are
+integral so that we don't need to worry about the encoding size of floating
+point numbers.\\
+
+\begin{sidenotebox}{\textbf{Sidenote} --- A disagreement on encoding lengths}
+However, there is a historical curiosity that maybe bears mentioning. The
+publication of the ellipsoid method brought to the fore disagreements about what
+should be counted in the encoding length of a problem. Consider a linear
+programming problem given by a matrix \(A \in \Q^{m \times n}\) and vectors \(b
+\in \Q^m, c \in \Q^n\). The question is whether the number \(n \cdot m\) should
+be considered as the size of the instance, or whether the space needed to encode
+\(A\), \(b\), and \(c\) should be counted as well. These lead to different
+complexities.
+\end{sidenotebox}
+
+This gives us the following definition of \(\encode \cdot \):
+\begin{equation} \label{eq:encode-length-int}
+  \encode{n} := 1 + \lceil \log_2(|n| + 1)\rceil,\ n \in \Z
+\end{equation}
+
+This may be extended to rational numbers \(r \in \Q\) by considering \(r\)'s
+unique coprime representation \(r = p/q,\ \gcd(p, q) = 1\); for rational \(r\)
+we define the encoding length to be
+%
+\begin{equation} \label{eq:encode-length-rational}
+\encode{r} := \encode{p} + \encode{q}
+\end{equation}
+Similarly, the encoding length of vectors and systems of equations can be built
+by summing the encoding lengths of the entries.
+
+We list a lemma that will be used later.
+\begin{lemma}{Encoding length inequalities}
+  \begin{enumerate}[(a)]
+    \item For every rational \(r\), \(|r| \leq 2^{\encode r - 1}\).
+    \item For every vector \(x \in \Q^n\), \(\norm{x} \leq \norm{x}_1 \leq 2^{\encode x - n} - 1\).
+    \item For every vector \(D \in \Q^{n\times n}\), \(|\det D| \leq 2^{\encode D - n^2} - 1\).
+  \end{enumerate}
+\end{lemma}

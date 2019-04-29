@@ -33,7 +33,7 @@ ellipse to that of an ellipsoid:
     For positive definite \(n\times n\) matrix \(A\), the set of points
     %
     \begin{equation}\label{eq:def-ellipsoid}
-      E = E(A,a) = \{x \in \R^n : (x - a)^T A^{-1} (x - a) \leq 1\}
+      E(A,a) = \{x \in \R^n : (x - a)^T A^{-1} (x - a) \leq 1\}
     \end{equation}
     %
     is called an \textbf{ellipsoid}.\footnote{Some sources define an ellipsoid
@@ -71,16 +71,20 @@ proved for ellipsoids centered at the origin hold for arbitrary ellipsoids.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Relating Ellipsoids and Spheres}
+Here we make precise the notion of shmooshing.
 The unit ball centered at \(a\) is a special case of the ellipsoid
-\[\ball(1, a) = E(I, a).\]
-It turns out we can also think of the ellipsoid \(E(A, a)\) as an affine
-transformation of \(\ball(1,0)\), namely
+\(\ball(1, a) = E(I, a),\) since
+%
+\[\ball(1, a)  = \{x : (x - a)^T(x - a) < 1\} = \{x : (x - a)^T I (x - a) \leq 1\} = E(I, a)\]
+%
+It turns out we can also write ellipsoids \(E(A, a)\) as affine transformation
+of \(\ball(1,0)\), namely
 %
 \[E(A,a) = A^{1/2} \ball(1, 0) + a.\]
 %
 Here \(A^{1/2}\) is the unique positive definite matrix satisfying
-\[A = A^{1/2} \cdot A^{1/2};\]
-whose existence is a well-known property of positive definite matrices.
+\[A = A^{1/2} \cdot A^{1/2},\]
+whose existence is a well-known property of positive definite matrices.\\
 
 \begin{figure}[t]
   \centering
@@ -88,8 +92,8 @@ whose existence is a well-known property of positive definite matrices.
   \caption{An ellipsoid}
   \label{fig:ellipsoid-eigenvalue}
 \end{figure}
-\begin{examplebox}{Example of an ellipsoid in \(R^2\): connecting ellipsoids to
-  eigenvalues}
+\begin{examplebox}{\textbf{Example of an ellipsoid in \(R^2\):} \textit{ellipsoids and
+  eigenvalues}}
   \begin{example} Consider the ellipsoid in
     Figure~\ref{fig:ellipsoid-eigenvalue}. This ellipsoid may be written in the
     form \(E(A,0)\), where
@@ -106,7 +110,8 @@ whose existence is a well-known property of positive definite matrices.
   %
   \[\vol(E(A, a)) = \sqrt{\det A} \cdot V_n,\]
   %
-  where \(V_n\) is the volume of the unit ball \(\ball(1,0)\). While explicit
+  where \(V_n\) is the volume of the unit ball \(\ball_n(1,0)\), where we
+  subscript by \(n\) to make explicit the balls dimension. While explicit
   formulas are known, for our purposes it suffices to know that
   %
   \[n^{-n} \leq V_n \leq 2^n.\]
