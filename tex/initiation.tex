@@ -1,56 +1,68 @@
 \section{Initialization of the Ellipsoid Method}
-Our second motivating question is ``how do we find an initial ellipsoid''? For
-the basic ellipsoid method we are assuming that \(P\) is bounded and
-full-dimensional, but it turns out that neither of these assumptions are needed
-in the fully general case.\\
+No that we have a basic idea of how the ellipsoid method works, we would like to
+initialize the first ellipsoid \(E_0\). We want to maintain the loop invariant
+that \(P \in E_k \implies P \in E_{k+1}\), so \(E_0\) should contain \(P\). But
+\(P\) is specified by some arbitrary integral system of inequalities \(Cx \leq
+d\), so how can we do this? Couldn't this correspond to an arbitrary polytope?\\
 
-In a perfect world we would have explicit bounds for each of our \(x_i\), say
-\(l_i \leq x_i \leq u_i\). If we do have this then we can take \(R\) to be
-%
-\[R := \sqrt{\sum_{i=1}^n \max\{u_i^2, l_i^2\}}.\]
-%
-Unfortunately the world isn't perfect\footnote{as evidenced by Emacs users (go
-Vim)} and we need a more general approach. In this case we use the
-\textit{encoding length} of \(C\) and \(d\), denoted \(\encode{C, d}\).
-\todo{offer proof? this seems cool and I'd like to understand it better.}
+It turns out that we do have some bounds on \(P\) in relation to the encoding
+length of \(C\) and \(d\). \\
 
-The \textbf{encoding length} of a number is roughly just the size of the input.
-While there are many possible encodings, we will assume a binary encoding.
-Further, for simplicity of exposition, we are assuming that all inputs are
-integral so that we don't need to worry about the encoding size of floating
-point numbers.\\
+\begin{defbox}
+  \begin{definition}
+    The \textbf{encoding length} of an integer \(m\) is the number of bits
+    needed to represent \(m\), which can be calculated to be \(1 + \lceil
+    \log_2(|m|)\rceil\). The \textbf{encoding length} of integral vector \(v\)
+    is the sum of the encoding lengths of the components of \(v\), namely
+    \(\encode v = \sum_{i=1}^n \encode v_i\). Similarly, the \textbf{encoding
+    length} of an integral matrix \(A\) is the sum of the encoding length of the
+    \(k\) column vectors of \(C\), namely \(\encode C = \sum_{i=1}^k \encode
+    c_i\).
+  \end{definition}
+\end{defbox}
 
-\begin{sidenotebox}{\textbf{Sidenote} --- A disagreement on encoding lengths}
-However, there is a historical curiosity that maybe bears mentioning. The
-publication of the ellipsoid method brought to the fore disagreements about what
-should be counted in the encoding length of a problem. Consider a linear
-programming problem given by a matrix \(A \in \Q^{m \times n}\) and vectors \(b
-\in \Q^m, c \in \Q^n\). The question is whether the number \(n \cdot m\) should
-be considered as the size of the instance, or whether the space needed to encode
-\(A\), \(b\), and \(c\) should be counted as well. These lead to different
-complexities.
-\end{sidenotebox}
+We denote by \(\encode{C, d}\) the encoding length of \(C\) and \(d\), which is
+simply \(\encode C + \encode d\). Next we provide a lemma that gives us an
+initial ellipsoid.
 
-This gives us the following definition of \(\encode \cdot \):
-\begin{equation} \label{eq:encode-length-int}
-  \encode{n} := 1 + \lceil \log_2(|n| + 1)\rceil,\ n \in \Z
-\end{equation}
+\begin{lemma}\label{lemma:encoding-length-radius}
+  \(P \subseteq \ball(R, 0)\), where 
+  \begin{equation}\label{eq:encoding-length-radius}
+    R := \sqrt{n}2^{\encode {C, d} - n^2}.
+  \end{equation}
+  \begin{proof}
+      We are assuming that \(P\) is bounded and full-dimensional in \(\R^n\);
+      that is, that it is the convex hull of its \(n+1\) vertices.  Suppose we
+      have some bound \(t\) such that for each component \(v_i\) of each vertex
+      \(v\) of \(P\) we had \(|v_i| \leq t\).  Then the furthest a \(v \in P\)
+      could be from the origin would be \(v = (t,t,t,t,\ldots, t)\), which would
+      have distance \(\sqrt{t^2 + t^2 + \cdots + t^2} = \sqrt{n} t\).\\
 
-This may be extended to rational numbers \(r \in \Q\) by considering \(r\)'s
-unique coprime representation \(r = p/q,\ \gcd(p, q) = 1\); for rational \(r\)
-we define the encoding length to be
-%
-\begin{equation} \label{eq:encode-length-rational}
-\encode{r} := \encode{p} + \encode{q}
-\end{equation}
-Similarly, the encoding length of vectors and systems of equations can be built
-by summing the encoding lengths of the entries.
+      From polyhedral theory we know that a vertex \(v\) is the
+      \textit{unique} solution to some system of \(n\) inequalities, say
+      \[Bx \leq b\]
+      where \(B\) is an \(n\times n\) submatrix of input matrix \(C\), and \(b\)
+      us a subvector of input bounds-vector \(d\). Since \(v\) is the unique
+      solution to \(Bx \leq b\), \(B\) is a non-singular matrix and we can apply
+      Cramer's rule to conclude that
+      %
+      \[v_i = \frac{\det{B_i}}{\det{B}},\]
+      %
+      where \(B_i\) is the matrix obtained by replacing the \(i\)th column of
+      \(B\) with \(b\), whence 
+      %
+      \[|v_i| = \frac{|\det{B_i}|}{|\det{B}|}.\]
+      %
+      Since \(B\) is non-singular and integral we have \(|\det{B}| \geq 1\), and
+      \(|v_i| \leq |\det B_i|\), giving us a bound on \(|v_i|\) as desired.\\
 
-We list a lemma that will be used later.
-\begin{lemma}{Encoding length inequalities}
-  \begin{enumerate}[(a)]
-    \item For every rational \(r\), \(|r| \leq 2^{\encode r - 1}\).
-    \item For every vector \(x \in \Q^n\), \(\norm{x} \leq \norm{x}_1 \leq 2^{\encode x - n} - 1\).
-    \item For every vector \(D \in \Q^{n\times n}\), \(|\det D| \leq 2^{\encode D - n^2} - 1\).
-  \end{enumerate}
+      We now appeal to a lemma, offered without proof, that states that \(|\det
+      B_i| \leq 2^{\encode {B_i} - n^2} - 1\). But since \(B_i\) has only
+      entries from \(C\) and \(d\) we must have \(\encode{B_i} \leq
+      \encode{C,d}\), and we conclude that
+      \[|v_i| \leq 2^{\encode{B_i} - n^2} - 1 \leq 2^{\encode{C,d} - n^2}.\]
+      Noting that this upper bound is universal for all components of all
+      vertices of \(P\), we conclude that \(P \subset \ball(R, 0)\).
+  \end{proof}
 \end{lemma}
+

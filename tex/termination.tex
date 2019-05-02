@@ -1,0 +1,25 @@
+\section{Termination}
+Finally, we would like to know if our algorithm terminates. If we ever find a
+point \(a_k \in P\) then we return, so we are concerned with the case where
+\(a_k\) is never found to be in \(P\). It turns out we can derive an upper bound
+\(N\) such that, if after considering \(E(A_N, a_N)\) we still have not found an
+\(a_k \in P\) we may conclude that \(P\) is empty; this follows from a volume
+argument. We offer the following two lemmas without proof.\\
+
+\begin{lemma}\label{lem:shrink}
+\[\frac{\vol(E_{k+1})}{\vol{(E_k)}} =
+\left(\left(\frac{n}{n+1}\right)^{n+1}\left(\frac{n}{n-1}\right)^{n-1}\right)^{1/2}
+< e^{-1/2n} < 1\]
+\end{lemma}
+
+\begin{lemma}\label{lem:bound}
+If \(P\) is a full-dimensional non-empty bounded polytope then
+\[\vol(P) \geq 2^{-(n+1)\encode C + n^3}\]
+\end{lemma}
+
+The above lemmas offer a shrinkage rate and a lower bound on \(P\)'s volume.
+Since Lemma~\ref{lem:shrink} guarantees that \(\vol(E_k) \to 0\) as \(k \to
+\infty\), and since Lemma~\ref{lem:bound} offers us a positive lower bound on
+the volume, the loop invariant that \(E_k\) contains \(P\) guarantees that after
+some finite number of steps we will have found a point in \(P\) or that \(P\)
+is empty.
